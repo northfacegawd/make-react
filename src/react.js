@@ -80,3 +80,17 @@ export function createElement(tag, props, ...children) {
 export function render(virtualDom, container) {
   container.appendChild(createDOM(virtualDom));
 }
+
+/**
+ * 클로저를 이용하여 이전 돔과 새로 받는 돔을 비교할 수 있도록 작성
+ */
+// export const render = (function () {
+//   let prevDom = null;
+//   return function (virtualDom, container) {
+//     if (prevDom === null) {
+//       prevDom = virtualDom;
+//     }
+//     //diff login
+//     container.appendChild(createDOM(virtualDom));
+//   };
+// })();
