@@ -1,3 +1,6 @@
+const hooks = [];
+let currentComponent = 0;
+
 export class Component {
   constructor(props) {
     this.props = props;
@@ -44,6 +47,19 @@ function makeProps(props, children) {
   };
 }
 
+function useState(initValue) {
+  let position = currentComponent - 1;
+  if (!hooks[position]) {
+    hooks[position] = initValue;
+  }
+
+  const modifier = (nextValue) => {
+    hooks[position] = nextValue;
+  };
+
+  return [hooks[position], modifier];
+}
+
 /**
  *
  * @param {string} tag html 태그명
@@ -59,6 +75,10 @@ export function createElement(tag, props, ...children) {
       const instance = new tag(makeProps(props, children));
       return instance.render();
     }
+
+    hooks[currentComponent] = null;
+    currentComponent++;
+
     if (children.length > 0) {
       return tag(makeProps(props, children));
     }
