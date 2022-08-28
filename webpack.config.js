@@ -6,7 +6,7 @@ module.exports = {
   entry: "./src/app.js",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "bundle.[chunkhash].js",
+    filename: "bundle.[chunkhash:8].js",
     clean: true,
   },
   devServer: {
