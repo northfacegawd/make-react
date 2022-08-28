@@ -34,6 +34,15 @@ export function createDOM(node) {
  * @description 가상 돔을 만드는 함수
  */
 export function createElement(tag, props, ...children) {
+  if (typeof tag == "function") {
+    if (children.length > 0) {
+      return tag({
+        ...props,
+        children: children.length === 1 ? children[0] : children,
+      });
+    }
+    return tag(props);
+  }
   return {
     tag,
     props: props || {},

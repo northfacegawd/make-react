@@ -18,13 +18,22 @@ import { render, createElement } from "./react";
 //   )
 // );
 
+// JSX에 표현되는 모든 함수(컴포넌트는) 무조건 대문자로 시작하여야함. 대문자가 아닌 경우 javascript 값이 아닌 일반 문자열로 취급하기 때문
+function Title(props) {
+  return <h1>{props.children}</h1>;
+}
+
+function Item(props) {
+  return <li style={`color:${props.color}`}>{props.children}</li>;
+}
+
 const virtualDom = (
   <p>
-    <h1>React 만들기</h1>
+    <Title label="React">React 만들어보기</Title>
     <ul>
-      <li style="color:red">첫 번째 아이템</li>
-      <li style="color:blue">두 번째 아이템</li>
-      <li style="color:green">세 번째 아이템</li>
+      <Item color="red">첫 번째 아이템</Item>
+      <Item color="blue">두 번째 아이템</Item>
+      <Item color="green">세 번째 아이템</Item>
     </ul>
   </p>
 );
