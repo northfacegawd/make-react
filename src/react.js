@@ -1,3 +1,9 @@
+export class Component {
+  constructor(props) {
+    this.props = props;
+  }
+}
+
 /**
  *
  * @param {object} node 돔으로 변환할 객체
@@ -27,6 +33,18 @@ export function createDOM(node) {
 }
 
 /**
+ * @param {any} props
+ * @param {any} children
+ * @description props를 사용하기 쉽게 만들어서 리턴
+ */
+function makeProps(props, children) {
+  return {
+    ...props,
+    children: children.length === 1 ? children[0] : children,
+  };
+}
+
+/**
  *
  * @param {string} tag html 태그명
  * @param {object} props 돔에 설정할 attribute 를 객체료 표현한 값
@@ -35,11 +53,14 @@ export function createDOM(node) {
  */
 export function createElement(tag, props, ...children) {
   if (typeof tag == "function") {
+    // react에서 내부적으로 클래스형, 함수형 컴포넌트를 구분하는 방법은 고유의 심볼을 만들어서 확인하지만
+    // 여기에서는 tag의 프로토타입이 Component클래스에 instanceof하다면 class형 컴포넌트로 판단
+    if (tag.prototype instanceof Component) {
+      const instance = new tag(makeProps(props, children));
+      return instance.render();
+    }
     if (children.length > 0) {
-      return tag({
-        ...props,
-        children: children.length === 1 ? children[0] : children,
-      });
+      return tag(makeProps(props, children));
     }
     return tag(props);
   }

@@ -2,7 +2,7 @@
 
 // 파일 최상단에 @jsx 주석을 사용하면 babel안에 포함되어 있는 React JSX Transpiler가 옵션을 입력받음
 // default 값은 React.createElement임
-import { render, createElement } from "./react";
+import { render, createElement, Component } from "./react";
 
 /* JSX문법은 내부적으로 이렇게 작동함 */
 // const virtualDom = createElement(
@@ -18,16 +18,19 @@ import { render, createElement } from "./react";
 //   )
 // );
 
-// JSX에 표현되는 모든 함수(컴포넌트는) 무조건 대문자로 시작하여야함. 대문자가 아닌 경우 javascript 값이 아닌 일반 문자열로 취급하기 때문
-function Title(props) {
-  return <h1>{props.children}</h1>;
+class Title extends Component {
+  render() {
+    const { children } = this.props;
+    return <h1>{children}</h1>;
+  }
 }
 
-function Item(props) {
+// JSX에 표현되는 모든 함수(컴포넌트는) 무조건 대문자로 시작하야함. 대문자가 아닌 경우 javascript 값이 아닌 일반 문자열로 취급하기 때문
+const Item = (props) => {
   return <li style={`color:${props.color}`}>{props.children}</li>;
-}
+};
 
-const virtualDom = (
+const App = () => (
   <p>
     <Title label="React">React 만들어보기</Title>
     <ul>
@@ -38,4 +41,4 @@ const virtualDom = (
   </p>
 );
 
-render(virtualDom, document.querySelector("#root"));
+render(<App />, document.querySelector("#root"));
