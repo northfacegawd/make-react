@@ -19,3 +19,7 @@ export function createDOM(node) {
 
   return element;
 }
+
+export function render(virtualDom, container) {
+  container.appendChild(createDOM(virtualDom));
+}

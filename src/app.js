@@ -1,6 +1,6 @@
-import { createDOM } from "./react";
+import { createDOM, render } from "./react";
 
-const node = {
+const virtualDom = {
   tag: "p",
   props: {},
   children: [
@@ -33,4 +33,4 @@ const node = {
   ],
 };
 
-document.querySelector("#root").appendChild(createDOM(node));
+render(virtualDom, document.querySelector("#root"));
