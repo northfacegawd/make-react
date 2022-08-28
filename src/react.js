@@ -1,3 +1,9 @@
+/**
+ *
+ * @param {object} node 돔으로 변환할 객체
+ * @returns {HTMLElement | Text} 생성된 돔
+ * @description 돔을 생성하여 리턴하는 함수
+ */
 export function createDOM(node) {
   // 인수로 받은 node가 문자열인 경우 문자열 돔을 생성해서 리턴
   if (typeof node === "string") {
@@ -20,6 +26,27 @@ export function createDOM(node) {
   return element;
 }
 
+/**
+ *
+ * @param {string} tag html 태그명
+ * @param {object} props 돔에 설정할 attribute 를 객체료 표현한 값
+ * @param  {...any} children 자식 객체들
+ * @description 가상 돔을 만드는 함수
+ */
+export function createElement(tag, props, ...children) {
+  return {
+    tag,
+    props,
+    children,
+  };
+}
+
+/**
+ *
+ * @param {any} virtualDom 가상돔
+ * @param {HTMLElement} container 돔으로 변환할 객체를 렌더링할 위치(컨테이너)
+ * @description 가상 돔을 입력받아서 렌더링하는 함수
+ */
 export function render(virtualDom, container) {
   container.appendChild(createDOM(virtualDom));
 }
