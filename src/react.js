@@ -36,7 +36,7 @@ export function createDOM(node) {
 export function createElement(tag, props, ...children) {
   return {
     tag,
-    props,
+    props: props || {},
     children,
   };
 }
